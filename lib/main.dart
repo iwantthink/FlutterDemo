@@ -2,8 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'animtest.dart';
 
+import 'animatest2.dart' as test2;
+import 'routemanager.dart';
+
+import 'dart:async';
 main(List<String> args) {
-  runApp(AnimTestWidget());
+  
+  runZoned((){
+
+  });
+
+  runApp(MaterialApp(
+    title: "title",
+    theme: ThemeData(
+      primarySwatch: Colors.blue,
+    ),
+    routes: {
+      "new_page": (context) => NewHome(),
+    },
+    home: OldHome(),
+  ));
 }
 
 class TestWidget extends StatelessWidget {
