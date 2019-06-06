@@ -5,10 +5,12 @@ import 'package:flutter/services.dart' show rootBundle;
 class OldHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-        title: Text("title"),
+        title: Text("title",
+        style: TextStyle(
+          background: new Paint()..color = Colors.red
+        ),),
       ),
       body: Center(
         child: GestureDetector(
@@ -26,9 +28,6 @@ class OldHome extends StatelessWidget {
 class NewHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var args = ModalRoute.of(context).settings.arguments;
-    print("args = $args");
-
 
     return Scaffold(
       appBar: AppBar(

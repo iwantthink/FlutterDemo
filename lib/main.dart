@@ -1,27 +1,130 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'animtest.dart';
+import 'dart:math';
 
-import 'animatest2.dart' as test2;
-import 'routemanager.dart';
-
-import 'dart:async';
 main(List<String> args) {
-  
-  runZoned((){
-
-  });
+//  runApp(Tss());
 
   runApp(MaterialApp(
     title: "title",
     theme: ThemeData(
       primarySwatch: Colors.blue,
     ),
-    routes: {
-      "new_page": (context) => NewHome(),
-    },
-    home: OldHome(),
+    home: Material(
+      child: Scaffold(
+        body: Padding(
+          padding: EdgeInsets.only(top: 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(top: 20.0), //容器外补白
+                color: Colors.orange,
+                child: Text("Hello world!"),
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 20.0), //容器内补白
+                color: Colors.red,
+                child: Text("Hello world!"),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 20.0),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(color: Colors.blue),
+                  child: Text("Hello world!"),
+                ),
+              ),
+              DecoratedBox(
+                decoration: BoxDecoration(color: Colors.green),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: Text("Hello world!"),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    ),
   ));
+}
+
+class MyIcons {
+  // book 图标
+  static const IconData book =
+      const IconData(0xe77e, fontFamily: 'myIcon', matchTextDirection: true);
+}
+
+class Tss extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    var result = MediaQuery(
+        data: MediaQueryData(),
+        child: Directionality(
+            textDirection: TextDirection.ltr,
+            child: Material(
+              child: null,
+            )));
+
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 0),
+      child: result,
+    );
+  }
+}
+
+class TestFlowDelegate2 extends FlowDelegate {
+  @override
+  void paintChildren(FlowPaintingContext context) {}
+
+  @override
+  bool shouldRepaint(FlowDelegate oldDelegate) {
+    return null;
+  }
+
+  @override
+  Size getSize(BoxConstraints constraints) {
+    return Size(500, 500);
+  }
+}
+
+class TestFlowDelegate extends FlowDelegate {
+  EdgeInsets margin = EdgeInsets.zero;
+
+  TestFlowDelegate({this.margin});
+
+  @override
+  void paintChildren(FlowPaintingContext context) {
+    var x = margin.left;
+    var y = margin.top;
+    //计算每一个子widget的位置
+    for (int i = 0; i < context.childCount; i++) {
+      var w = context.getChildSize(i).width + x + margin.right;
+      if (w < context.size.width) {
+        context.paintChild(i,
+            transform: new Matrix4.translationValues(x, y, 0.0));
+        x = w + margin.left;
+      } else {
+        x = margin.left;
+        y += context.getChildSize(i).height + margin.top + margin.bottom;
+        //绘制子widget(有优化)
+        context.paintChild(i,
+            transform: new Matrix4.translationValues(x, y, 0.0));
+        x += context.getChildSize(i).width + margin.left + margin.right;
+      }
+    }
+  }
+
+  @override
+  getSize(BoxConstraints constraints) {
+    //指定Flow的大小
+    return Size(double.infinity, 200.0);
+  }
+
+  @override
+  bool shouldRepaint(FlowDelegate oldDelegate) {
+    return oldDelegate != this;
+  }
 }
 
 class TestWidget extends StatelessWidget {
