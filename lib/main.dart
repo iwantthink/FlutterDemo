@@ -1,52 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:math';
+//import 'CorePrinciple.dart';
 
 main(List<String> args) {
-//  runApp(Tss());
+  runApp(MyWidget());
 
-  runApp(MaterialApp(
-    title: "title",
-    theme: ThemeData(
-      primarySwatch: Colors.blue,
-    ),
-    home: Material(
-      child: Scaffold(
-        body: Padding(
-          padding: EdgeInsets.only(top: 0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(top: 20.0), //容器外补白
-                color: Colors.orange,
-                child: Text("Hello world!"),
-              ),
-              Container(
-                padding: EdgeInsets.only(top: 20.0), //容器内补白
-                color: Colors.red,
-                child: Text("Hello world!"),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 20.0),
-                child: DecoratedBox(
-                  decoration: BoxDecoration(color: Colors.blue),
-                  child: Text("Hello world!"),
-                ),
-              ),
-              DecoratedBox(
-                decoration: BoxDecoration(color: Colors.green),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: Text("Hello world!"),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    ),
-  ));
+}
+
+class MyWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ErrorWidget("框架错误");
+  }
 }
 
 class MyIcons {
